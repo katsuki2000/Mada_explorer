@@ -18,5 +18,12 @@ class Species extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, commonName, scientificName, conservationStatus, description, imageUrl];
+  List<Object?> get props => [
+        id,
+        commonName,
+        scientificName,
+        conservationStatus,
+        description,
+        imageUrl
+      ];
 }

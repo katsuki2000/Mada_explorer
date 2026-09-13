@@ -62,7 +62,8 @@ void main() {
   group('getParks - offline', () {
     test('returns cached parks when there is no connectivity', () async {
       when(() => networkInfo.isConnected).thenAnswer((_) async => false);
-      when(() => localDataSource.getCachedParks()).thenAnswer((_) async => tParks);
+      when(() => localDataSource.getCachedParks())
+          .thenAnswer((_) async => tParks);
 
       final result = await repository.getParks();
 
@@ -70,14 +71,17 @@ void main() {
       verifyNever(() => remoteDataSource.getParks());
     });
 
-    test('returns NetworkFailure when offline and the cache is empty', () async {
+    test('returns NetworkFailure when offline and the cache is empty',
+        () async {
       when(() => networkInfo.isConnected).thenAnswer((_) async => false);
-      when(() => localDataSource.getCachedParks()).thenThrow(CacheException('empty'));
+      when(() => localDataSource.getCachedParks())
+          .thenThrow(CacheException('empty'));
 
       final result = await repository.getParks();
 
       expect(result.isLeft(), true);
-      result.fold((failure) => expect(failure, isA<NetworkFailure>()), (_) => fail('expected a Left'));
+      result.fold((failure) => expect(failure, isA<NetworkFailure>()),
+          (_) => fail('expected a Left'));
     });
   });
 }

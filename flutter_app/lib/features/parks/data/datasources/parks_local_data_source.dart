@@ -19,19 +19,33 @@ class ParksLocalDataSourceImpl implements ParksLocalDataSource {
 
   @override
   Future<void> cacheParks(List<ParkModel> parks) async {
-    final raw = parks.map((p) => p.toJson()).toList();
-    await _box.put(listKey, raw);
+    try {
+      final raw = parks.map((p) => p.toJson()).toList();
+      await _box.put(listKey, raw);
+    } catch (e) {
+      throw CacheException("Impossible d'enregistrer les parcs en cache: $e");
+    }
   }
 
   @override
   Future<List<ParkModel>> getCachedParks() async {
-    final raw = _box.get(listKey) as List?;
-    if (raw == null || raw.isEmpty) {
-      throw CacheException('Aucun parc en cache. Connectez-vous a internet au moins une fois.');
+    final List? raw;
+    try {
+      raw = _box.get(listKey) as List?;
+    } catch (e) {
+      throw CacheException('Impossible de lire le cache des parcs: $e');
     }
-    return raw
-        .map((e) => ParkModel.fromJson(Map<String, dynamic>.from(e as Map)))
-        .toList();
+    if (raw == null || raw.isEmpty) {
+      throw CacheException(
+          'Aucun parc en cache. Connectez-vous a internet au moins une fois.');
+    }
+    try {
+      return raw
+          .map((e) => ParkModel.fromJson(Map<String, dynamic>.from(e as Map)))
+          .toList();
+    } catch (e) {
+      throw CacheException('Cache des parcs corrompu: $e');
+    }
   }
 
   @override

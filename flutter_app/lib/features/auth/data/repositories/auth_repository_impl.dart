@@ -22,13 +22,17 @@ class AuthRepositoryImpl implements AuthRepository {
   });
 
   @override
-  Future<Either<Failure, User>> login({required String email, required String password}) async {
+  Future<Either<Failure, User>> login(
+      {required String email, required String password}) async {
     if (!await networkInfo.isConnected) {
-      return const Left(NetworkFailure('Connexion internet requise pour se connecter.'));
+      return const Left(
+          NetworkFailure('Connexion internet requise pour se connecter.'));
     }
     try {
-      final auth = await remoteDataSource.login(email: email, password: password);
-      await tokenStorage.saveTokens(accessToken: auth.accessToken, refreshToken: auth.refreshToken);
+      final auth =
+          await remoteDataSource.login(email: email, password: password);
+      await tokenStorage.saveTokens(
+          accessToken: auth.accessToken, refreshToken: auth.refreshToken);
       await localDataSource.cacheUser(auth.user);
       return Right(auth.user);
     } on AuthException catch (e) {
@@ -47,11 +51,14 @@ class AuthRepositoryImpl implements AuthRepository {
     required String password,
   }) async {
     if (!await networkInfo.isConnected) {
-      return const Left(NetworkFailure('Connexion internet requise pour creer un compte.'));
+      return const Left(
+          NetworkFailure('Connexion internet requise pour creer un compte.'));
     }
     try {
-      final auth = await remoteDataSource.register(name: name, email: email, password: password);
-      await tokenStorage.saveTokens(accessToken: auth.accessToken, refreshToken: auth.refreshToken);
+      final auth = await remoteDataSource.register(
+          name: name, email: email, password: password);
+      await tokenStorage.saveTokens(
+          accessToken: auth.accessToken, refreshToken: auth.refreshToken);
       await localDataSource.cacheUser(auth.user);
       return Right(auth.user);
     } on AuthException catch (e) {
@@ -70,14 +77,28 @@ class AuthRepositoryImpl implements AuthRepository {
       if (refreshToken != null) {
         await remoteDataSource.logout(refreshToken);
       }
-      await tokenStorage.clear();
-      await localDataSource.clearUser();
-      return const Right(unit);
     } catch (_) {
-      // Local session must be cleared even if the remote call failed.
+      // The remote call is best-effort: an unreachable server or an already
+      // invalid refresh token must never prevent the local session from
+      // being cleared below.
+    }
+    // Local session must always be cleared, whether or not the remote call
+    // above succeeded. Each cleanup step is isolated so that a failure in
+    // one (e.g. a corrupted Hive box) never leaves the other half-done.
+    await _clearLocalSessionSilently();
+    return const Right(unit);
+  }
+
+  Future<void> _clearLocalSessionSilently() async {
+    try {
       await tokenStorage.clear();
+    } catch (_) {
+      // Best-effort: nothing more we can do if secure storage itself fails.
+    }
+    try {
       await localDataSource.clearUser();
-      return const Right(unit);
+    } catch (_) {
+      // Best-effort: a corrupted cache box must not make logout() throw.
     }
   }
 
@@ -98,6 +119,8 @@ class AuthRepositoryImpl implements AuthRepository {
       return Right(cached);
     } on CacheException catch (e) {
       return Left(CacheFailure(e.message));
+    } catch (_) {
+      return const Left(UnexpectedFailure());
     }
   }
 }

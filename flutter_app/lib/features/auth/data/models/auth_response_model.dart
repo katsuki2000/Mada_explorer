@@ -12,7 +12,8 @@ class AuthResponseModel {
     required this.refreshToken,
   });
 
-  factory AuthResponseModel.fromJson(Map<String, dynamic> json) => AuthResponseModel(
+  factory AuthResponseModel.fromJson(Map<String, dynamic> json) =>
+      AuthResponseModel(
         user: UserModel.fromJson(json['user'] as Map<String, dynamic>),
         accessToken: json['accessToken'] as String,
         refreshToken: json['refreshToken'] as String,

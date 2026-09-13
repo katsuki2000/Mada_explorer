@@ -16,14 +16,17 @@ class SpeciesRemoteDataSourceImpl implements SpeciesRemoteDataSource {
     try {
       final response = await dio.get(ApiConstants.species);
       final list = response.data as List;
-      return list.map((e) => SpeciesModel.fromJson(e as Map<String, dynamic>)).toList();
+      return list
+          .map((e) => SpeciesModel.fromJson(e as Map<String, dynamic>))
+          .toList();
     } on DioException catch (e) {
       if (e.type == DioExceptionType.connectionTimeout ||
           e.type == DioExceptionType.receiveTimeout ||
           e.type == DioExceptionType.connectionError) {
         throw ServerException('Impossible de joindre le serveur.');
       }
-      throw ServerException(e.response?.data?['message']?.toString() ?? 'Erreur serveur.');
+      throw ServerException(
+          e.response?.data?['message']?.toString() ?? 'Erreur serveur.');
     }
   }
 }

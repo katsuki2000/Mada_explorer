@@ -5,7 +5,8 @@ import '../models/auth_response_model.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<AuthResponseModel> login({required String email, required String password});
+  Future<AuthResponseModel> login(
+      {required String email, required String password});
   Future<AuthResponseModel> register({
     required String name,
     required String email,
@@ -20,7 +21,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl(this.dio);
 
   @override
-  Future<AuthResponseModel> login({required String email, required String password}) async {
+  Future<AuthResponseModel> login(
+      {required String email, required String password}) async {
     try {
       final response = await dio.post(
         ApiConstants.login,
@@ -29,7 +31,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       return AuthResponseModel.fromJson(response.data as Map<String, dynamic>);
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
-        throw AuthException(e.response?.data?['message'] ?? 'Identifiants invalides.');
+        throw AuthException(
+            e.response?.data?['message'] ?? 'Identifiants invalides.');
       }
       throw ServerException(_dioMessage(e));
     }

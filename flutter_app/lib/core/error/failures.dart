@@ -20,7 +20,8 @@ class AuthFailure extends Failure {
 
 class NetworkFailure extends Failure {
   const NetworkFailure([
-    super.message = 'Pas de connexion internet. Affichage des donnees en cache.',
+    super.message =
+        'Pas de connexion internet. Affichage des donnees en cache.',
   ]);
 }
 
@@ -29,5 +30,6 @@ class CacheFailure extends Failure {
 }
 
 class UnexpectedFailure extends Failure {
-  const UnexpectedFailure([super.message = 'Une erreur inattendue est survenue.']);
+  const UnexpectedFailure(
+      [super.message = 'Une erreur inattendue est survenue.']);
 }

@@ -19,7 +19,10 @@ class OfflineBanner extends StatelessWidget {
           SizedBox(width: 8),
           Text(
             'Mode hors ligne - donnees en cache',
-            style: TextStyle(color: Colors.black87, fontSize: 12, fontWeight: FontWeight.w600),
+            style: TextStyle(
+                color: Colors.black87,
+                fontSize: 12,
+                fontWeight: FontWeight.w600),
           ),
         ],
       ),

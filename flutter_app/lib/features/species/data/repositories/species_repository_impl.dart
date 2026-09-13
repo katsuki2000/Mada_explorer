@@ -34,7 +34,8 @@ class SpeciesRepositoryImpl implements SpeciesRepository {
     return _fallbackToCache(const NetworkFailure());
   }
 
-  Future<Either<Failure, List<Species>>> _fallbackToCache(Failure reason) async {
+  Future<Either<Failure, List<Species>>> _fallbackToCache(
+      Failure reason) async {
     try {
       final cached = await localDataSource.getCachedSpecies();
       return Right(cached);

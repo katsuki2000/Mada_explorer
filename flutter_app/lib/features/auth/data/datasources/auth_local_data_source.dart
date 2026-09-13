@@ -19,18 +19,35 @@ class AuthLocalDataSourceImpl implements AuthLocalDataSource {
 
   @override
   Future<void> cacheUser(UserModel user) async {
-    await _box.put(userKey, user.toJson());
+    try {
+      await _box.put(userKey, user.toJson());
+    } catch (e) {
+      throw CacheException("Impossible d'enregistrer le profil en cache: $e");
+    }
   }
 
   @override
   Future<UserModel> getCachedUser() async {
-    final raw = _box.get(userKey);
+    final Object? raw;
+    try {
+      raw = _box.get(userKey);
+    } catch (e) {
+      throw CacheException('Impossible de lire le cache utilisateur: $e');
+    }
     if (raw == null) throw CacheException('Aucun utilisateur en cache.');
-    return UserModel.fromJson(Map<String, dynamic>.from(raw as Map));
+    try {
+      return UserModel.fromJson(Map<String, dynamic>.from(raw as Map));
+    } catch (e) {
+      throw CacheException('Cache utilisateur corrompu: $e');
+    }
   }
 
   @override
   Future<void> clearUser() async {
-    await _box.delete(userKey);
+    try {
+      await _box.delete(userKey);
+    } catch (e) {
+      throw CacheException('Impossible de vider le cache utilisateur: $e');
+    }
   }
 }

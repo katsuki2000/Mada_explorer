@@ -32,12 +32,14 @@ class _ParksListScreenState extends State<ParksListScreen> {
           if (state is ParksError) {
             return _ErrorView(
               message: state.message,
-              onRetry: () => context.read<ParksCubit>().loadParks(forceRefresh: true),
+              onRetry: () =>
+                  context.read<ParksCubit>().loadParks(forceRefresh: true),
             );
           }
           final loaded = state as ParksLoaded;
           return RefreshIndicator(
-            onRefresh: () => context.read<ParksCubit>().loadParks(forceRefresh: true),
+            onRefresh: () =>
+                context.read<ParksCubit>().loadParks(forceRefresh: true),
             child: Column(
               children: [
                 if (loaded.isOffline) const OfflineBanner(),
@@ -50,7 +52,9 @@ class _ParksListScreenState extends State<ParksListScreen> {
                       return ParkCard(
                         park: park,
                         onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => ParkDetailScreen(parkId: park.id)),
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  ParkDetailScreen(parkId: park.id)),
                         ),
                       );
                     },

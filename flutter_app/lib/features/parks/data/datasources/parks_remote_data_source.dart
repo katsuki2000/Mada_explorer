@@ -17,7 +17,9 @@ class ParksRemoteDataSourceImpl implements ParksRemoteDataSource {
     try {
       final response = await dio.get(ApiConstants.parks);
       final list = response.data as List;
-      return list.map((e) => ParkModel.fromJson(e as Map<String, dynamic>)).toList();
+      return list
+          .map((e) => ParkModel.fromJson(e as Map<String, dynamic>))
+          .toList();
     } on DioException catch (e) {
       throw ServerException(_message(e));
     }

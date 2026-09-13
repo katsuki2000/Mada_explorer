@@ -15,8 +15,10 @@ class DioClient {
     final dio = Dio(
       BaseOptions(
         baseUrl: ApiConstants.baseUrl,
-        connectTimeout: const Duration(milliseconds: ApiConstants.connectTimeoutMs),
-        receiveTimeout: const Duration(milliseconds: ApiConstants.receiveTimeoutMs),
+        connectTimeout:
+            const Duration(milliseconds: ApiConstants.connectTimeoutMs),
+        receiveTimeout:
+            const Duration(milliseconds: ApiConstants.receiveTimeoutMs),
         headers: {'Content-Type': 'application/json'},
       ),
     );
@@ -29,7 +31,8 @@ class DioClient {
     dio.interceptors.add(LogInterceptor(
       requestBody: false,
       responseBody: false,
-      logPrint: (_) {}, // swap for a real logger; kept silent for release builds
+      logPrint:
+          (_) {}, // swap for a real logger; kept silent for release builds
     ));
 
     return dio;

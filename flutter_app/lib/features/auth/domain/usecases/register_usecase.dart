@@ -9,7 +9,8 @@ class RegisterParams extends Equatable {
   final String name;
   final String email;
   final String password;
-  const RegisterParams({required this.name, required this.email, required this.password});
+  const RegisterParams(
+      {required this.name, required this.email, required this.password});
 
   @override
   List<Object?> get props => [name, email, password];
@@ -21,6 +22,7 @@ class RegisterUseCase implements UseCase<User, RegisterParams> {
 
   @override
   Future<Either<Failure, User>> call(RegisterParams params) {
-    return repository.register(name: params.name, email: params.email, password: params.password);
+    return repository.register(
+        name: params.name, email: params.email, password: params.password);
   }
 }

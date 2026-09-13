@@ -22,5 +22,14 @@ class Park extends Equatable {
   });
 
   @override
-  List<Object?> get props => [id, name, region, description, areaKm2, createdYear, imageUrl, speciesIds];
+  List<Object?> get props => [
+        id,
+        name,
+        region,
+        description,
+        areaKm2,
+        createdYear,
+        imageUrl,
+        speciesIds
+      ];
 }

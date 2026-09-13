@@ -41,7 +41,8 @@ class _ParkDetailScreenState extends State<ParkDetailScreen> {
               appBar: AppBar(),
               body: Center(child: Text(failure.message)),
             ),
-            (park) => _ParkDetailBody(park: park, speciesFuture: _speciesFuture),
+            (park) =>
+                _ParkDetailBody(park: park, speciesFuture: _speciesFuture),
           );
         },
       ),
@@ -80,33 +81,46 @@ class _ParkDetailBody extends StatelessWidget {
                   children: [
                     _InfoChip(icon: Icons.place, label: park.region),
                     const SizedBox(width: 8),
-                    _InfoChip(icon: Icons.straighten, label: '${park.areaKm2} km²'),
+                    _InfoChip(
+                        icon: Icons.straighten, label: '${park.areaKm2} km²'),
                     const SizedBox(width: 8),
-                    _InfoChip(icon: Icons.calendar_today, label: '${park.createdYear}'),
+                    _InfoChip(
+                        icon: Icons.calendar_today,
+                        label: '${park.createdYear}'),
                   ],
                 ),
                 const SizedBox(height: 20),
-                Text(park.description, style: const TextStyle(fontSize: 15, height: 1.5)),
+                Text(park.description,
+                    style: const TextStyle(fontSize: 15, height: 1.5)),
                 const SizedBox(height: 24),
-                Text('Especes observables', style: Theme.of(context).textTheme.titleMedium),
+                Text('Especes observables',
+                    style: Theme.of(context).textTheme.titleMedium),
                 const SizedBox(height: 12),
                 FutureBuilder<Either<Failure, List<Species>>>(
                   future: speciesFuture,
                   builder: (context, snapshot) {
-                    if (!snapshot.hasData) return const LinearProgressIndicator();
+                    if (!snapshot.hasData) {
+                      return const LinearProgressIndicator();
+                    }
                     return snapshot.data!.fold(
                       (failure) => Text(failure.message),
                       (allSpecies) {
-                        final relevant = allSpecies.where((s) => park.speciesIds.contains(s.id)).toList();
-                        if (relevant.isEmpty) return const Text('Aucune donnee disponible.');
+                        final relevant = allSpecies
+                            .where((s) => park.speciesIds.contains(s.id))
+                            .toList();
+                        if (relevant.isEmpty) {
+                          return const Text('Aucune donnee disponible.');
+                        }
                         return Wrap(
                           spacing: 8,
                           runSpacing: 8,
                           children: relevant
                               .map((s) => Chip(
-                                    avatar: const Icon(Icons.pets, size: 16, color: AppColors.forest),
+                                    avatar: const Icon(Icons.pets,
+                                        size: 16, color: AppColors.forest),
                                     label: Text(s.commonName),
-                                    backgroundColor: AppColors.forest.withValues(alpha: 0.08),
+                                    backgroundColor: AppColors.forest
+                                        .withValues(alpha: 0.08),
                                   ))
                               .toList(),
                         );

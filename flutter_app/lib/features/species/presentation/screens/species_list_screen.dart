@@ -38,7 +38,9 @@ class _SpeciesListScreenState extends State<SpeciesListScreen> {
       appBar: AppBar(title: const Text('Faune endemique')),
       body: BlocBuilder<SpeciesCubit, SpeciesState>(
         builder: (context, state) {
-          if (state is SpeciesLoading) return const Center(child: CircularProgressIndicator());
+          if (state is SpeciesLoading) {
+            return const Center(child: CircularProgressIndicator());
+          }
           if (state is SpeciesError) {
             return Center(
               child: Padding(
@@ -46,12 +48,14 @@ class _SpeciesListScreenState extends State<SpeciesListScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.cloud_off, size: 56, color: Colors.black38),
+                    const Icon(Icons.cloud_off,
+                        size: 56, color: Colors.black38),
                     const SizedBox(height: 12),
                     Text(state.message, textAlign: TextAlign.center),
                     const SizedBox(height: 16),
                     ElevatedButton(
-                      onPressed: () => context.read<SpeciesCubit>().loadSpecies(),
+                      onPressed: () =>
+                          context.read<SpeciesCubit>().loadSpecies(),
                       child: const Text('Reessayer'),
                     ),
                   ],
@@ -72,7 +76,8 @@ class _SpeciesListScreenState extends State<SpeciesListScreen> {
                     itemBuilder: (context, index) {
                       final s = loaded.species[index];
                       return Card(
-                        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 6),
                         child: ListTile(
                           contentPadding: const EdgeInsets.all(12),
                           leading: ClipRRect(
@@ -86,26 +91,34 @@ class _SpeciesListScreenState extends State<SpeciesListScreen> {
                                 width: 56,
                                 height: 56,
                                 color: AppColors.forest.withValues(alpha: 0.15),
-                                child: const Icon(Icons.pets, color: AppColors.forest),
+                                child: const Icon(Icons.pets,
+                                    color: AppColors.forest),
                               ),
                             ),
                           ),
-                          title: Text(s.commonName, style: const TextStyle(fontWeight: FontWeight.bold)),
+                          title: Text(s.commonName,
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold)),
                           subtitle: Padding(
                             padding: const EdgeInsets.only(top: 4),
                             child: Text(s.scientificName,
-                                style: const TextStyle(fontStyle: FontStyle.italic, fontSize: 12)),
+                                style: const TextStyle(
+                                    fontStyle: FontStyle.italic, fontSize: 12)),
                           ),
                           trailing: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 4),
                             decoration: BoxDecoration(
-                              color: _statusColor(s.conservationStatus).withValues(alpha: 0.12),
+                              color: _statusColor(s.conservationStatus)
+                                  .withValues(alpha: 0.12),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
                               s.conservationStatus,
                               style: TextStyle(
-                                  color: _statusColor(s.conservationStatus), fontSize: 10, fontWeight: FontWeight.bold),
+                                  color: _statusColor(s.conservationStatus),
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                           isThreeLine: false,
@@ -118,11 +131,17 @@ class _SpeciesListScreenState extends State<SpeciesListScreen> {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(s.commonName, style: Theme.of(context).textTheme.titleLarge),
+                                  Text(s.commonName,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleLarge),
                                   Text(s.scientificName,
-                                      style: const TextStyle(fontStyle: FontStyle.italic, color: Colors.black54)),
+                                      style: const TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          color: Colors.black54)),
                                   const SizedBox(height: 12),
-                                  Text(s.description, style: const TextStyle(height: 1.5)),
+                                  Text(s.description,
+                                      style: const TextStyle(height: 1.5)),
                                   const SizedBox(height: 16),
                                 ],
                               ),

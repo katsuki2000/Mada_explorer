@@ -8,9 +8,11 @@ import 'package:mada_explorer/features/species/data/datasources/species_remote_d
 import 'package:mada_explorer/features/species/data/models/species_model.dart';
 import 'package:mada_explorer/features/species/data/repositories/species_repository_impl.dart';
 
-class MockSpeciesRemoteDataSource extends Mock implements SpeciesRemoteDataSource {}
+class MockSpeciesRemoteDataSource extends Mock
+    implements SpeciesRemoteDataSource {}
 
-class MockSpeciesLocalDataSource extends Mock implements SpeciesLocalDataSource {}
+class MockSpeciesLocalDataSource extends Mock
+    implements SpeciesLocalDataSource {}
 
 class MockNetworkInfo extends Mock implements NetworkInfo {}
 
@@ -42,11 +44,14 @@ void main() {
     ),
   ];
 
-  test('getSpecies falls back to cache and preserves the original failure reason when both remote and cache fail',
+  test(
+      'getSpecies falls back to cache and preserves the original failure reason when both remote and cache fail',
       () async {
     when(() => networkInfo.isConnected).thenAnswer((_) async => true);
-    when(() => remoteDataSource.getSpecies()).thenThrow(ServerException('Erreur serveur.'));
-    when(() => localDataSource.getCachedSpecies()).thenThrow(CacheException('vide'));
+    when(() => remoteDataSource.getSpecies())
+        .thenThrow(ServerException('Erreur serveur.'));
+    when(() => localDataSource.getCachedSpecies())
+        .thenThrow(CacheException('vide'));
 
     final result = await repository.getSpecies();
 
@@ -57,7 +62,9 @@ void main() {
     );
   });
 
-  test('getSpecies returns remote data and refreshes the cache when online and reachable', () async {
+  test(
+      'getSpecies returns remote data and refreshes the cache when online and reachable',
+      () async {
     when(() => networkInfo.isConnected).thenAnswer((_) async => true);
     when(() => remoteDataSource.getSpecies()).thenAnswer((_) async => tSpecies);
     when(() => localDataSource.cacheSpecies(any())).thenAnswer((_) async {});
@@ -68,10 +75,14 @@ void main() {
     verify(() => localDataSource.cacheSpecies(tSpecies)).called(1);
   });
 
-  test('getSpecies returns cached data when the remote call throws but cache has data', () async {
+  test(
+      'getSpecies returns cached data when the remote call throws but cache has data',
+      () async {
     when(() => networkInfo.isConnected).thenAnswer((_) async => true);
-    when(() => remoteDataSource.getSpecies()).thenThrow(ServerException('down'));
-    when(() => localDataSource.getCachedSpecies()).thenAnswer((_) async => tSpecies);
+    when(() => remoteDataSource.getSpecies())
+        .thenThrow(ServerException('down'));
+    when(() => localDataSource.getCachedSpecies())
+        .thenAnswer((_) async => tSpecies);
 
     final result = await repository.getSpecies();
 

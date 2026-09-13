@@ -22,7 +22,8 @@ class ParksRepositoryImpl implements ParksRepository {
   });
 
   @override
-  Future<Either<Failure, List<Park>>> getParks({bool forceRefresh = false}) async {
+  Future<Either<Failure, List<Park>>> getParks(
+      {bool forceRefresh = false}) async {
     if (await networkInfo.isConnected) {
       try {
         final remoteParks = await remoteDataSource.getParks();

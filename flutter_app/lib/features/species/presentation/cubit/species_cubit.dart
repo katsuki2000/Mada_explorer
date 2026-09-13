@@ -7,7 +7,8 @@ class SpeciesCubit extends Cubit<SpeciesState> {
   final GetSpeciesUseCase getSpeciesUseCase;
   final NetworkInfo networkInfo;
 
-  SpeciesCubit({required this.getSpeciesUseCase, required this.networkInfo}) : super(const SpeciesLoading());
+  SpeciesCubit({required this.getSpeciesUseCase, required this.networkInfo})
+      : super(const SpeciesLoading());
 
   Future<void> loadSpecies() async {
     emit(const SpeciesLoading());

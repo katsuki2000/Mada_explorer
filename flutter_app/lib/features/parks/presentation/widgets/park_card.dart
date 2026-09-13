@@ -23,10 +23,12 @@ class ParkCard extends StatelessWidget {
                 fit: BoxFit.cover,
                 errorBuilder: (_, __, ___) => Container(
                   color: AppColors.forest.withValues(alpha: 0.15),
-                  child: const Icon(Icons.park, size: 48, color: AppColors.forest),
+                  child:
+                      const Icon(Icons.park, size: 48, color: AppColors.forest),
                 ),
-                loadingBuilder: (context, child, progress) =>
-                    progress == null ? child : const Center(child: CircularProgressIndicator()),
+                loadingBuilder: (context, child, progress) => progress == null
+                    ? child
+                    : const Center(child: CircularProgressIndicator()),
               ),
             ),
             Padding(
@@ -35,15 +37,23 @@ class ParkCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(park.name,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(fontWeight: FontWeight.bold)),
                   const SizedBox(height: 4),
                   Row(
                     children: [
-                      const Icon(Icons.place, size: 14, color: AppColors.laterite),
+                      const Icon(Icons.place,
+                          size: 14, color: AppColors.laterite),
                       const SizedBox(width: 4),
-                      Text(park.region, style: const TextStyle(color: Colors.black54, fontSize: 13)),
+                      Text(park.region,
+                          style: const TextStyle(
+                              color: Colors.black54, fontSize: 13)),
                       const Spacer(),
-                      Text('${park.areaKm2} km²', style: const TextStyle(color: Colors.black54, fontSize: 13)),
+                      Text('${park.areaKm2} km²',
+                          style: const TextStyle(
+                              color: Colors.black54, fontSize: 13)),
                     ],
                   ),
                 ],

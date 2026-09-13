@@ -21,7 +21,8 @@ class MadaExplorerApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<AuthCubit>(create: (_) => di.sl<AuthCubit>()..restoreSession()),
+        BlocProvider<AuthCubit>(
+            create: (_) => di.sl<AuthCubit>()..restoreSession()),
         BlocProvider<ParksCubit>(create: (_) => di.sl<ParksCubit>()),
         BlocProvider<SpeciesCubit>(create: (_) => di.sl<SpeciesCubit>()),
       ],
@@ -44,9 +45,15 @@ class _RootRouter extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
-        if (state is AuthAuthenticated) return const HomeShell();
-        if (state is AuthUnauthenticated || state is AuthError) return const LoginScreen();
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        if (state is AuthAuthenticated) {
+          return const HomeShell();
+        }
+        if (state is AuthUnauthenticated || state is AuthError) {
+          return const LoginScreen();
+        }
+        return const Scaffold(
+          body: Center(child: CircularProgressIndicator()),
+        );
       },
     );
   }
@@ -78,9 +85,18 @@ class _HomeShellState extends State<HomeShell> {
         selectedIndex: _index,
         onDestinationSelected: (i) => setState(() => _index = i),
         destinations: const [
-          NavigationDestination(icon: Icon(Icons.park_outlined), selectedIcon: Icon(Icons.park), label: 'Parcs'),
-          NavigationDestination(icon: Icon(Icons.pets_outlined), selectedIcon: Icon(Icons.pets), label: 'Faune'),
-          NavigationDestination(icon: Icon(Icons.person_outline), selectedIcon: Icon(Icons.person), label: 'Profil'),
+          NavigationDestination(
+              icon: Icon(Icons.park_outlined),
+              selectedIcon: Icon(Icons.park),
+              label: 'Parcs'),
+          NavigationDestination(
+              icon: Icon(Icons.pets_outlined),
+              selectedIcon: Icon(Icons.pets),
+              label: 'Faune'),
+          NavigationDestination(
+              icon: Icon(Icons.person_outline),
+              selectedIcon: Icon(Icons.person),
+              label: 'Profil'),
         ],
       ),
     );

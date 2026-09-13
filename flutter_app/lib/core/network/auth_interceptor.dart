@@ -9,16 +9,22 @@ import 'token_storage.dart';
 /// 401, only a single /auth/refresh call is fired and the others wait for it.
 class AuthInterceptor extends QueuedInterceptor {
   final TokenStorage tokenStorage;
-  final Dio _refreshDio; // separate Dio instance: no auth header, no retry loop
+  final Dio
+      _plainDio; // no auth header, no retry loop: used for refresh + retry
   final void Function() onRefreshFailed; // e.g. force logout
 
+  /// [plainDio] is injectable so tests can swap in a mocked HTTP adapter
+  /// instead of hitting the network. Defaults to a fresh Dio pointed at the
+  /// real backend for production use.
   AuthInterceptor({
     required this.tokenStorage,
     required this.onRefreshFailed,
-  }) : _refreshDio = Dio(BaseOptions(baseUrl: ApiConstants.baseUrl));
+    Dio? plainDio,
+  }) : _plainDio = plainDio ?? Dio(BaseOptions(baseUrl: ApiConstants.baseUrl));
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     final token = await tokenStorage.accessToken;
     if (token != null && token.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $token';
@@ -36,22 +42,22 @@ class AuthInterceptor extends QueuedInterceptor {
         final refreshToken = await tokenStorage.refreshToken;
         if (refreshToken == null) throw Exception('No refresh token');
 
-        final response = await _refreshDio.post(
+        final response = await _plainDio.post(
           ApiConstants.refresh,
           data: {'refreshToken': refreshToken},
         );
 
         final newAccess = response.data['accessToken'] as String;
         final newRefresh = response.data['refreshToken'] as String;
-        await tokenStorage.saveTokens(accessToken: newAccess, refreshToken: newRefresh);
+        await tokenStorage.saveTokens(
+            accessToken: newAccess, refreshToken: newRefresh);
 
         // Retry the original request with the fresh token.
         final retryOptions = err.requestOptions;
         retryOptions.headers['Authorization'] = 'Bearer $newAccess';
         retryOptions.extra['retried'] = true;
 
-        final cloneDio = Dio(BaseOptions(baseUrl: ApiConstants.baseUrl));
-        final retryResponse = await cloneDio.fetch(retryOptions);
+        final retryResponse = await _plainDio.fetch(retryOptions);
         return handler.resolve(retryResponse);
       } catch (_) {
         await tokenStorage.clear();

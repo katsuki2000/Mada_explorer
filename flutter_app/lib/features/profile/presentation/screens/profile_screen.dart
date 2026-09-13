@@ -27,7 +27,11 @@ class ProfileScreen extends StatelessWidget {
                   child: Icon(Icons.person, size: 42, color: Colors.white),
                 ),
                 const SizedBox(height: 16),
-                Text(user.name, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
+                Text(user.name,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleLarge
+                        ?.copyWith(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 4),
                 Text(user.email, style: const TextStyle(color: Colors.black54)),
                 const SizedBox(height: 32),
@@ -35,7 +39,8 @@ class ProfileScreen extends StatelessWidget {
                 const ListTile(
                   leading: Icon(Icons.info_outline, color: AppColors.baobab),
                   title: Text('A propos'),
-                  subtitle: Text('Mada Explorer - parcs et faune de Madagascar'),
+                  subtitle:
+                      Text('Mada Explorer - parcs et faune de Madagascar'),
                 ),
                 const Divider(),
                 const SizedBox(height: 20),
@@ -44,7 +49,8 @@ class ProfileScreen extends StatelessWidget {
                   child: OutlinedButton.icon(
                     onPressed: () => context.read<AuthCubit>().logout(),
                     icon: const Icon(Icons.logout, color: AppColors.laterite),
-                    label: const Text('Se deconnecter', style: TextStyle(color: AppColors.laterite)),
+                    label: const Text('Se deconnecter',
+                        style: TextStyle(color: AppColors.laterite)),
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: AppColors.laterite),
                       padding: const EdgeInsets.symmetric(vertical: 14),

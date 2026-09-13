@@ -37,7 +37,8 @@ final sl = GetIt.instance;
 
 Future<void> initDependencies() async {
   // ----- Core -----
-  sl.registerLazySingleton<FlutterSecureStorage>(() => const FlutterSecureStorage());
+  sl.registerLazySingleton<FlutterSecureStorage>(
+      () => const FlutterSecureStorage());
   sl.registerLazySingleton<TokenStorage>(() => TokenStorage(sl()));
   sl.registerLazySingleton<Connectivity>(() => Connectivity());
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
@@ -51,8 +52,10 @@ Future<void> initDependencies() async {
   sl.registerLazySingleton(() => sl<DioClient>().build());
 
   // ----- Auth feature -----
-  sl.registerLazySingleton<AuthRemoteDataSource>(() => AuthRemoteDataSourceImpl(sl()));
-  sl.registerLazySingleton<AuthLocalDataSource>(() => AuthLocalDataSourceImpl());
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+      () => AuthRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<AuthLocalDataSource>(
+      () => AuthLocalDataSourceImpl());
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
       remoteDataSource: sl(),
@@ -74,21 +77,29 @@ Future<void> initDependencies() async {
   );
 
   // ----- Parks feature -----
-  sl.registerLazySingleton<ParksRemoteDataSource>(() => ParksRemoteDataSourceImpl(sl()));
-  sl.registerLazySingleton<ParksLocalDataSource>(() => ParksLocalDataSourceImpl());
+  sl.registerLazySingleton<ParksRemoteDataSource>(
+      () => ParksRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<ParksLocalDataSource>(
+      () => ParksLocalDataSourceImpl());
   sl.registerLazySingleton<ParksRepository>(
-    () => ParksRepositoryImpl(remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()),
+    () => ParksRepositoryImpl(
+        remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton(() => GetParksUseCase(sl()));
   sl.registerLazySingleton(() => GetParkByIdUseCase(sl()));
-  sl.registerFactory(() => ParksCubit(getParksUseCase: sl(), networkInfo: sl()));
+  sl.registerFactory(
+      () => ParksCubit(getParksUseCase: sl(), networkInfo: sl()));
 
   // ----- Species feature -----
-  sl.registerLazySingleton<SpeciesRemoteDataSource>(() => SpeciesRemoteDataSourceImpl(sl()));
-  sl.registerLazySingleton<SpeciesLocalDataSource>(() => SpeciesLocalDataSourceImpl());
+  sl.registerLazySingleton<SpeciesRemoteDataSource>(
+      () => SpeciesRemoteDataSourceImpl(sl()));
+  sl.registerLazySingleton<SpeciesLocalDataSource>(
+      () => SpeciesLocalDataSourceImpl());
   sl.registerLazySingleton<SpeciesRepository>(
-    () => SpeciesRepositoryImpl(remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()),
+    () => SpeciesRepositoryImpl(
+        remoteDataSource: sl(), localDataSource: sl(), networkInfo: sl()),
   );
   sl.registerLazySingleton(() => GetSpeciesUseCase(sl()));
-  sl.registerFactory(() => SpeciesCubit(getSpeciesUseCase: sl(), networkInfo: sl()));
+  sl.registerFactory(
+      () => SpeciesCubit(getSpeciesUseCase: sl(), networkInfo: sl()));
 }
