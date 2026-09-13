@@ -1,0 +1,62 @@
+[
+  {
+    "id": "p1",
+    "name": "Parc National de Ranomafana",
+    "region": "Haute Matsiatra",
+    "description": "Foret tropicale humide celebre pour ses lemuriens dont le rare Hapalemur aureus, et ses sources thermales.",
+    "areaKm2": 416,
+    "createdYear": 1991,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Ranomafana_rainforest.jpg",
+    "species": ["s1", "s2", "s6"]
+  },
+  {
+    "id": "p2",
+    "name": "Parc National Andasibe-Mantadia",
+    "region": "Alaotra-Mangoro",
+    "description": "Le plus accessible depuis Antananarivo, connu pour le chant puissant de l'Indri indri, le plus grand des lemuriens vivants.",
+    "areaKm2": 155,
+    "createdYear": 1989,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Indri_indri_1.jpg",
+    "species": ["s1", "s3"]
+  },
+  {
+    "id": "p3",
+    "name": "Parc National de l'Isalo",
+    "region": "Ihorombe",
+    "description": "Massif de gres sculpte par l'erosion, canyons profonds et piscines naturelles au coeur du sud malgache.",
+    "areaKm2": 815,
+    "createdYear": 1962,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/12/Isalo_National_Park.jpg",
+    "species": ["s4"]
+  },
+  {
+    "id": "p4",
+    "name": "Reserve de Tsingy de Bemaraha",
+    "region": "Melaky",
+    "description": "Classe au patrimoine mondial de l'UNESCO, un labyrinthe calcaire unique au monde surnomme la foret de pierre.",
+    "areaKm2": 1520,
+    "createdYear": 1927,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/8/85/Tsingy_de_Bemaraha.jpg",
+    "species": ["s5"]
+  },
+  {
+    "id": "p5",
+    "name": "Parc National de Masoala",
+    "region": "SAVA",
+    "description": "La plus grande aire protegee de Madagascar, combinant foret tropicale primaire et recifs coralliens.",
+    "areaKm2": 2300,
+    "createdYear": 1997,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3e/Masoala_rainforest.jpg",
+    "species": ["s2", "s6"]
+  },
+  {
+    "id": "p6",
+    "name": "Parc National de la Montagne d'Ambre",
+    "region": "Diana",
+    "description": "Foret montagnarde luxuriante avec cascades et lacs de cratere, tres riche en reptiles endemiques.",
+    "areaKm2": 182,
+    "createdYear": 1958,
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Montagne_d%27Ambre.jpg",
+    "species": ["s3"]
+  }
+]

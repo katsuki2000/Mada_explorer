@@ -1,0 +1,50 @@
+[
+  {
+    "id": "s1",
+    "commonName": "Indri (Babakoto)",
+    "scientificName": "Indri indri",
+    "conservationStatus": "En danger critique",
+    "description": "Le plus grand lemurien vivant, celebre pour son chant territorial audible a plusieurs kilometres.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Indri_indri_1.jpg"
+  },
+  {
+    "id": "s2",
+    "commonName": "Aye-aye",
+    "scientificName": "Daubentonia madagascariensis",
+    "conservationStatus": "En danger",
+    "description": "Primate nocturne unique reconnaissable a son long doigt median utilise pour extraire les larves du bois.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0a/Aye-aye.jpg"
+  },
+  {
+    "id": "s3",
+    "commonName": "Lemurien a queue annelee",
+    "scientificName": "Lemur catta",
+    "conservationStatus": "En danger",
+    "description": "Symbole emblematique de Madagascar, vit en groupes matriarcaux et communique par le parfum.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/7/70/Lemur_catta.jpg"
+  },
+  {
+    "id": "s4",
+    "commonName": "Propitheque de Verreaux",
+    "scientificName": "Propithecus verreauxi",
+    "conservationStatus": "En danger critique",
+    "description": "Aussi appele sifaka, connu pour sa demarche sautillante caracteristique au sol.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Propithecus_verreauxi_002.jpg"
+  },
+  {
+    "id": "s5",
+    "commonName": "Fossa",
+    "scientificName": "Cryptoprocta ferox",
+    "conservationStatus": "Vulnerable",
+    "description": "Plus grand predateur carnivore de Madagascar, apparente aux mangoustes malgre son allure feline.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/9/90/Cryptoprocta_ferox.jpg"
+  },
+  {
+    "id": "s6",
+    "commonName": "Microcebe (lemur souris)",
+    "scientificName": "Microcebus murinus",
+    "conservationStatus": "Preoccupation mineure",
+    "description": "Un des plus petits primates au monde, actif la nuit dans les forets humides de l'est.",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6e/Microcebus_murinus.jpg"
+  }
+]

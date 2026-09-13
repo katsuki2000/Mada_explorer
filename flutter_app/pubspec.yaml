@@ -1,0 +1,43 @@
+name: mada_explorer
+description: "Mada Explorer - Discover Madagascar's national parks and endemic wildlife. Clean Architecture Flutter demo app connected to a real backend."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+
+  # State management
+  flutter_bloc: ^8.1.5
+  equatable: ^2.0.5
+
+  # Networking
+  dio: ^5.4.3
+  connectivity_plus: ^6.0.3
+
+  # Local persistence / caching
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  flutter_secure_storage: ^9.2.2
+
+  # DI
+  get_it: ^7.7.0
+
+  # Utils
+  dartz: ^0.10.1
+  intl: ^0.19.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  hive_generator: ^2.0.1
+  build_runner: ^2.4.9
+  mocktail: ^1.0.3
+
+flutter:
+  uses-material-design: true
